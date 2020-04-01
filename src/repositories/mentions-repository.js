@@ -14,3 +14,6 @@ exports.updateMention = async(id,data) => {
         $set: data
     })
 }
+exports.deleteMention = async id => {
+    await Mentions.findByIdAndDelete(id)
+}

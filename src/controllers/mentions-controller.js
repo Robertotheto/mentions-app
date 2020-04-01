@@ -1,3 +1,4 @@
+const {validationResult} = require('express-validator')
 const repository = require('../repositories/mentions-repository')
 
 //list
@@ -11,6 +12,11 @@ exports.listMentions = async(req,res) => {
 }
 //create
 exports.createMention = async(req,res) => {
+    const {errors} = validationResult(req)
+
+    if(errors.length > 0){
+        return res.status(400).send({message:errors})
+    }
     try{
         await repository.createMention({
             friend: req.body.friend,

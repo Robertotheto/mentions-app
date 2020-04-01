@@ -26,6 +26,8 @@ process.on('SIGINT',() => {
     )
     process.exit(0)
 })
+// Load Models
+const Mentions = require('./models/mentions')
 //Load Router
 const indexRoutes = require('./routes/index-routes')
 app.use('/' ,indexRoutes)

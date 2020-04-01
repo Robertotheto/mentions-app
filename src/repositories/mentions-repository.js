@@ -9,3 +9,8 @@ exports.createMention = async data => {
     const mention = new Mentions(data)
     await mention.save()
 }
+exports.updateMention = async(id,data) => {
+    await Mentions.findByIdAndUpdate(id,{
+        $set: data
+    })
+}

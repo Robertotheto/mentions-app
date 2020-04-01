@@ -1,5 +1,5 @@
 const app = require('../src/app')
-const htpp = require('http')
+const http = require('http')
 const debug = require('debug')('nodestr:server')
 //PORT
 function normalizePort(val){

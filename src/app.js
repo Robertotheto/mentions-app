@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 //App
 const app = express()
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 //Database
 mongoose.connect(process.env.DATABASE_CONNECTION_STRING,{
     useUnifiedTopology: true,
@@ -21,16 +23,20 @@ db.on('disconnected',() => {
     console.log('Mongoose default connection is disconnected')
 })
 process.on('SIGINT',() => {
-    console.log(
-        'Mongoose default connection is disconnected due to application termination'
-    )
-    process.exit(0)
+    db.close(() => {
+        console.log(
+            'Mongoose default connection is disconnected due to application termination'
+        )
+        process.exit(0)
+    })
 })
 // Load Models
 const Mentions = require('./models/mentions')
 //Load Router
 const indexRoutes = require('./routes/index-routes')
 app.use('/' ,indexRoutes)
+const mentionsRoutes = require('./routes/mentions-routes')
+app.use('/mentions',mentionsRoutes)
 
 
 module.exports = app

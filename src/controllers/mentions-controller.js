@@ -11,7 +11,7 @@ exports.listMentions = async(req,res) => {
     }
 }
 //create
-exports.createMentions = async(req,res) => {
+exports.createMention = async(req,res) => {
     try{
         const mention = new Mentions({
             friend: req.body.friend,
